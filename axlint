@@ -1,0 +1,238 @@
+#!/usr/bin/env php
+<?php
+
+function msg_log($msg){
+	global $log_handle;
+	if (!isset($log_handle)){
+		$log_handle = fopen('axlint.log', 'a');
+	}
+	fwrite($log_handle, $msg . PHP_EOL);
+}
+
+/**
+ * Walk a tree, applying an action to every object.
+ * Returns a modified tree.
+ * From https://github.com/Vinai/pandocfilters-php/blob/master/pandocfilters.php
+ */
+function ast_walk($value, $action, $format, $meta)
+{
+	if (is_array($value)) {
+		$array = array();
+		foreach ($value as $item) {
+			if (is_object($item) && isset($item->t)) {
+				$result = $action($item->t, $item->c, $format, $meta);
+				if (is_null($result)) {
+					$array[] = ast_walk($item, $action, $format, $meta);
+				} elseif (is_array($result)) {
+					foreach ($result as $res_value) {
+						$array[] = ast_walk($res_value, $action, $format, $meta);
+					}
+				} elseif (is_object($result)) {
+					$array[] = ast_walk($result, $action, $format, $meta);
+				} else {
+					$obj = clone $item;
+					$obj->c = (string)$result;
+					$array[] = $obj;
+				}
+				continue;
+			}
+			
+			$array[] = ast_walk($item, $action, $format, $meta);
+		}
+		return $array;
+	}
+		
+	if (is_object($value)) {
+		$obj = clone $value;
+		foreach (get_object_vars($value) as $prop => $prop_value) {
+			$obj->{$prop} = ast_walk($prop_value, $action, $format, $meta);
+		}
+		return $obj;
+	}
+	
+	return $value;
+}
+
+function html_get_title($filename) {
+	$html = file_get_contents($filename);
+	if (!$html) 
+		return null;
+
+	$res = preg_match("/<title>(.*)<\/title>/siU", $html, $matches);
+	if (!$res) 
+		return null; 
+
+	$title = html_entity_decode($matches[1], ENT_COMPAT | ENT_QUOTES, 'UTF-8');
+	// Clean up title: remove EOL's and excessive whitespace.
+	$title = preg_replace('/\s+/', ' ', $title);
+	$title = trim($title);
+	return $title;
+}
+
+/*
+The argument is a list of functions action(key, value, format, meta),
+where key is the type of the pandoc object (e.g. 'Str', 'Para'),
+value is the contents of the object (e.g. a string for 'Str',
+a list of inline elements for 'Para'), format is the target
+output format (which will be taken for the first command line
+argument if present), and meta is the document's metadata.
+If the function returns null, the object to which it applies
+will remain unchanged.  If it returns an object, the object will
+be replaced.	If it returns a list, the list will be spliced in to
+the list to which the target object belongs. So, returning an
+empty list deletes the object.
+*/
+
+function link_filter($type, $value, $format, $meta){
+	if($type !== 'Link'){
+		return null;
+	}
+	
+	$url = $value[1][0];
+	// If title already defined
+	if(count($value[0]) != 1 || $value[0][0]->c != $url){
+		return null;
+	}
+	
+	$title = html_get_title($url);
+	if(is_null($title)){
+		$title = $url;
+	}
+	$value[0] = array((object)array('t' => 'Str', 'c' => $title));
+	
+	return (object)array('t' => 'Link', 'c' => $value);
+}
+
+// echo -e "Text with link to http://google.com homepage.\n- test 1\n- test 2\n- test 3\n\n## test code\n\tfunction hello(){\n\t\techo 'hello';\n\t}" | ./axlint
+// http://pandoc.org/scripting.html
+function main(){
+	/*
+	if (count($GLOBALS['argv']) > 1) {
+		$file = $GLOBALS['argv'][1];
+		if(!is_readable($file) || !is_file($file)){
+			fwrite(STDERR, sprintf('%d is not a readable file' . PHP_EOL, $file));
+			exit(1);
+		}
+		if(!is_writable($file)){
+			fwrite(STDERR, sprintf('%d is not a readable file' . PHP_EOL, $file));
+			exit(1);
+		}
+	} else {
+		$file = 'php://stdin';
+	}
+	file_get_contents($file);
+	*/
+	
+	$format = 'markdown_github';
+	$input_args = '--normalize --preserve-tabs';
+	$output_args = '--atx-headers';
+	/*
+	markdown_github (GitHub-Flavored Markdown):
+	- pipe_tables
+	- raw_html
+	- fenced_code_blocks
+	- auto_identifiers
+	- ascii_identifiers
+	- backtick_code_blocks
+	- autolink_bare_uris
+	- intraword_underscores
+	- strikeout
+	- hard_line_breaks
+	- emoji
+	- shortcut_reference_links
+	*/
+	
+	// FORMAT to JSON AST
+	$cmd = sprintf('pandoc -f %s -t json %s', $format, $input_args);
+	$descriptorspec = array(
+		0 => STDIN/* = 'php://stdin' *//* array('pipe', 'r') */, // stdin
+		1 => array('pipe', 'w'), // stdout
+		2 => array('pipe', 'a') // stderr
+	);
+	$process = proc_open($cmd, $descriptorspec, $pipes);
+	
+	// proc_open fail
+	if (!is_resource($process)) {
+		$last_error = error_get_last();
+		fwrite(STDERR, 'Unable exec pandoc: ' . $last_error['message'] . PHP_EOL);
+		exit(1);
+	}
+	
+	$process_stdout = stream_get_contents($pipes[1]);
+	fclose($pipes[1]);
+	
+	$process_stderr = stream_get_contents($pipes[2]);
+	fclose($pipes[2]);
+	
+	$process_exit_code = proc_close($process);
+	
+	// proc_close fail
+	if($process_exit_code < 0){
+		$last_error = error_get_last();
+		fwrite(STDERR, 'Unable exec pandoc: ' . $last_error['message'] . PHP_EOL);
+		exit(1);
+	}
+	
+	// pandoc error
+	if($process_exit_code > 0){
+		fwrite(STDERR, 'pandoc error:' . PHP_EOL . $process_stderr);
+		exit($process_exit_code);
+	}
+	
+	// In case of something in STDERR to log
+	fwrite(STDERR, $process_stderr);
+	
+	$ast = json_decode($process_stdout);
+
+	$json_error = json_last_error();
+	if($json_error > JSON_ERROR_NONE){
+		fwrite(STDERR, 'Pandoc JSON AST error ' . $json_error . PHP_EOL);
+		exit(1);
+	}
+	
+	// Update
+	$ast = ast_walk($ast, 'link_filter', "json", $ast[0]->unMeta);
+	
+	// JSON AST to FORMAT
+	$cmd = sprintf('pandoc -f json -t %s %s', $format, $output_args);
+	$descriptorspec = array(
+		0 => array('pipe', 'r'), // stdin
+		1 => STDOUT, // stdout
+		2 => array('pipe', 'a') // stderr
+	);
+	$process = proc_open($cmd, $descriptorspec, $pipes);
+	
+	// proc_open fail
+	if (!is_resource($process)) {
+		$last_error = error_get_last();
+		fwrite(STDERR, 'Unable exec pandoc: ' . $last_error['message'] . PHP_EOL);
+		exit(1);
+	}
+
+	$json = json_encode($ast, JSON_HEX_TAG|JSON_HEX_AMP|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+	fwrite($pipes[0], $json);
+	fclose($pipes[0]);
+	
+	$process_stderr = stream_get_contents($pipes[2]);
+	fclose($pipes[2]);
+	
+	$process_exit_code = proc_close($process);
+	
+	// proc_close fail
+	if($process_exit_code < 0){
+		$last_error = error_get_last();
+		fwrite(STDERR, 'Unable exec pandoc: ' . $last_error['message'] . PHP_EOL);
+		exit(1);
+	}
+	
+	// pandoc error
+	if($process_exit_code > 0){
+		fwrite(STDERR, 'pandoc error:' . PHP_EOL . $process_stderr);
+		exit($process_exit_code);
+	}
+	
+	// In case of something in STDERR to log
+	fwrite(STDERR, $process_stderr);
+}
+
+main();
