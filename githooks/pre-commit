@@ -26,5 +26,7 @@ for file in ${files}; do
 	
 	# Lint unstaged file
 	# To prevent inverse commits, we need to lint already staged parts and incidentally unstaged parts
-	./axlint < ./$file > ./$file
+	# To prevent shell clobber, need to use a tmp file. Alt: create file in /tmp http://unix.stackexchange.com/a/181938/60668
+	# Any editor with this file opened should be aware of that
+	./axlint < "$file" > "$file.tmp" && mv "$file.tmp" "$file"
 done
