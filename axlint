@@ -104,6 +104,7 @@ function link_filter($type, $value, $format, $meta){
 }
 
 // echo -e "Text with link to http://google.com homepage.\n- test 1\n- test 2\n- test 3\n\n## test code\n\tfunction hello(){\n\t\techo 'hello';\n\t}" | ./axlint
+// http://pandoc.org/README.html
 // http://pandoc.org/scripting.html
 function main(){
 	/*
