@@ -9,13 +9,22 @@ fi
 
 mode=100644
 for file in ${files}; do
-	#./axlint < ./$file > ./$file
-	# read staged file content
 	echo "lint $file"
-	# Get staged file, lint it, then update the git index
+	
+	# Lint staged file:
+	# 
+	# 1. get staged file
+	# 2. lint it
+	# 3. put blob in git object db and compute it hash ID
+	# 4. update the git index (staging)
+	# 
 	# Based on:
 	# https://gist.github.com/ihower/6132576
 	# http://eddmann.com/posts/the-internals-of-git/
 	hash=$(git cat-file blob ":$file" | ./axlint | git hash-object -w --stdin)
 	git update-index --add --cacheinfo $mode $hash "$file"
+	
+	# Lint unstaged file
+	# To prevent inverse commits, we need to lint already staged parts and incidentally unstaged parts
+	./axlint < ./$file > ./$file
 done
