@@ -6,7 +6,12 @@ Softwares include web server, web browsers, webmail, email clients, softwares wi
 
 Affected domains like CSS, HTML, JS, SVG, DOM, ARIA, WebGL, PNG, HTTP, etc. (see [W3C standards](http://www.w3.org/standards/)).
 
-Motivations:
+See also:
+
+- [Outdated Browser](http://outdatedbrowser.com)
+- [The myth of the “modern browser” | Christian Heilmann](http://christianheilmann.com/2012/08/03/the-myth-of-the-modern-browser/)
+
+## Motivations
 
 - we don't know everythink. We can miss things that create bugs
 - there is not always a public bugtracking ticket for that. (Especially for proprietary softwares or old browsers like IE<11)
@@ -37,11 +42,6 @@ Motivations:
 - what specs say (if any)
 - we have to live with it, but we should know to handle it
 - when you remove old support or code/lib, you need to know exactly what can be removed
-
-See also:
-
-- [Outdated Browser](http://outdatedbrowser.com)
-- [The myth of the “modern browser” | Christian Heilmann](http://christianheilmann.com/2012/08/03/the-myth-of-the-modern-browser/)
 
 ## Potential issues
 
