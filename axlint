@@ -193,6 +193,15 @@ function main(){
 	
 	// Update
 	$ast = ast_walk($ast, 'link_filter', "json", $ast[0]->unMeta);
+
+	// TODO
+	// check if h1 title exist
+	// resolve link title (+include anchors name)
+	// resolve entries #AX***
+	// resolve browser bugtracking ID
+	// update entries relations
+	// remove duplicated links in list
+	// add tag based on **keyword**
 	
 	// JSON AST to FORMAT
 	$cmd = sprintf('pandoc -f json -t %s %s', $format, $output_args);
