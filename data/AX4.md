@@ -1,21 +1,21 @@
-# Leading slash missing for `anchorElement.pathname`
+# Leading slash removed in `anchorElement.pathname`
 
 For `<a href="https://domain.com/path">link</a>` give `anchorElement.pathname == "path"`, should be `"/path"`.
 
 Note: It's not the case for `document.location` and `window.location`.
 
-Applications:
+## Applications
 
 -   ✅ IE 9
--   ❎ IE1
+-   ❎ IE 10
 
-Tags:
+## Tags
 
 -   dom
 -   url
 -   anchor
 
-Links:
+## See also
 
 -   [internet explorer - Javascript .pathname IE quirk? - Stack Overflow](http://stackoverflow.com/questions/956233/javascript-pathname-ie-quirk)
 -   [\#3478 (Missing slash in location.pathname under Internet Explorer 10) – OpenLayers 2](http://trac.osgeo.org/openlayers/ticket/3478)

@@ -1,15 +1,15 @@
 # `getBoundingClientRect` return coordinates in physical pixel size
 
-Applications:
+## Applications
 
 -   ✅ IE 7
 -   ❎ IE 8
 
-Tags:
+## Tags
 
 -   dom
 
-Links:
+## See also
 
 -   [getBoundingClientRect method JavaScript](http://help.dottoro.com/ljvmcrrn.php)
 

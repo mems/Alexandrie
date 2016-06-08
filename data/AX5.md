@@ -1,18 +1,21 @@
-# Form submition with button send button's text
+# Form data set contains submitter label instead of value
 
-When a form is submited with `<button type="submit" name="myButton" value="foo">Click me</button>`, the POST data send will result in `myButton=Click me` (equal `button.textContent`) instead of `myButton=foo`.
+When a form is submitted from an submitter (`<button type="submit" name="bt" value="foo">Send</button>`), the data set will contains the button label (`bt=Send`) instead of its value (`bt=foo`).
 
-Tags:
+Workaround: use `<input type="submit" value="foo">`, but you the button's label will be equal to the `value` attribute (`foo`).
+
+## Tags
 
 -   form
 
-Applications:
+## Applications
 
 -   ✅ IE 7
 -   ❎ IE 8
 
-Links:
+## See also
 
--   [\<button\> - HTML | MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Button#Notes)
--   AX5
+-   [\\<button\> - HTML | MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Button#Notes)
+-   # AX7
+
 

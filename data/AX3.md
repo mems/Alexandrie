@@ -5,11 +5,11 @@ The document `https://domain.com/` with a link `<a href="https://domain.com/">li
 
 Should be `anchorElement.port == ""`
 
-Applications:
+## Applications
 
 -   ✅ IE11
 
-Tags:
+## Tags
 
 -   anchor
 -   url
