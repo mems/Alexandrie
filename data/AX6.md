@@ -3,6 +3,7 @@
 ## Tags
 
 -   dom
+- style
 
 ## Applications
 
