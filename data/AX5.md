@@ -16,6 +16,7 @@ Workaround: use `<input type="submit" value="foo">`, but you the button's label 
 ## See also
 
 -   [\\<button\> - HTML | MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Button#Notes)
+-   [4.10 Forms — HTML5](https://www.w3.org/TR/html5/forms.html#constructing-the-form-data-set)
 -   # AX7
 
 

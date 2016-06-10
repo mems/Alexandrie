@@ -1,4 +1,4 @@
-# `getBoundingClientRect` return coordinates in physical pixel size
+# `getBoundingClientRect` return coordinates in physical pixel space
 
 ## Applications
 
@@ -12,4 +12,3 @@
 ## See also
 
 -   [getBoundingClientRect method JavaScript](http://help.dottoro.com/ljvmcrrn.php)
-
