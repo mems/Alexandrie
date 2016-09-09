@@ -34,6 +34,7 @@ See also:
 		- JSLint (Assume browser, Node.js, etc.)
 		- [israelidanny/ie8linter](https://github.com/israelidanny/ie8linter)
 		- [JS Compatibility Checker](http://jscc.info/)
+	* generate summaries [What CSS prefixes should I use?](http://shouldiprefix.com/)
 - we want to know what the specs say and their implementation
 	Embed a widget with support in blog etc. "browser support", similar to https://github.com/andismith/caniuse-widget or https://github.com/ireade/caniuse-embed/
 - because old version of softwares are still used
