@@ -36,7 +36,7 @@ See also:
 		- [JS Compatibility Checker](http://jscc.info/)
 	* generate summaries [What CSS prefixes should I use?](http://shouldiprefix.com/)
 - we want to know what the specs say and their implementation
-	Embed a widget with support in blog etc. "browser support", similar to https://github.com/andismith/caniuse-widget or https://github.com/ireade/caniuse-embed/
+	Embed a widget with support in blog etc. "browser support", similar to [caniuse-widget](https://github.com/andismith/caniuse-widget), [caniuse-embed](https://github.com/ireade/caniuse-embed/), [caniuse-component](https://github.com/una/caniuse-component), etc.
 - because old version of softwares are still used
 - because when it's maintained, it done only by few people (projects other than caniuse, moz wiki, webplatform, etc.)
 - because it's not the goal of our sources
