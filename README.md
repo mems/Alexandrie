@@ -26,6 +26,7 @@ See also:
 	* generate documentation ([DevDocs](http://devdocs.io/))
 	* update it (moz wiki, webplatform, caniuse)
 	* create tools like: [The API Catalog](https://developer.microsoft.com/en-us/microsoft-edge/platform/catalog/)
+	* centrelize data for website like html5please, whatwebcando, iswebvrready, browsercookielimits, etc.
 	* linting (compability checking) for tools like:
 		- https://github.com/anandthakker/doiuse
 		- [I want to use](http://www.iwanttouse.com/)
