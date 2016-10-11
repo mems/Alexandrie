@@ -24,9 +24,8 @@ See also:
 - help us to dev with automations: 
 	* generate definitions base on standards and softwares specifities (see Intellji: JavaScriptLanguage package with `@browser` annotation. See `com.intellij.lang.javascript.JavascriptLanguage`, ECMAScript.js, DHTML.js and HTML5.js)
 	* generate documentation ([DevDocs](http://devdocs.io/))
-	* update it (moz wiki, webplatform, caniuse)
+	* update it or be the source of (a bit conceited): moz wiki, webplatform, caniuse, doiuse, html5please, whatwebcando, iswebvrready, browsercookielimits, etc.
 	* create tools like: [The API Catalog](https://developer.microsoft.com/en-us/microsoft-edge/platform/catalog/)
-	* centrelize data for website like html5please, whatwebcando, iswebvrready, browsercookielimits, etc.
 	* linting (compability checking) for tools like:
 		- https://github.com/anandthakker/doiuse
 		- [I want to use](http://www.iwanttouse.com/)
