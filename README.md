@@ -15,11 +15,12 @@ See also:
 
 - we don't know everythink. We can miss things that create bugs
 - there is not always a public bugtracking ticket for that. (Especially for proprietary softwares or old browsers like IE<11)
-- we don't have a common test data available anywhere (lot of sources, when it's available)
+- we don't have a common test set available anywhere (lot of sources, when it's available)
 - bug tracking don't often include metadatas (tests, links to more informations, details and explainations) and noisy informations (comments in same place, because it's a bugtracking!)
 - bug tracking are for bugs, not for specifications interpretations nor for browser vendor specific features
 - for the same bug, there is multiple tickets over multiple bugtracking (for each browser vendor) or too specific (internal implementations)
 - we need discussions. Bug tracking ticket are not always allow that (Github Issues will let us do that)
+- we want to know about our technical debt
 - we want to know workaround, polyfills, etc.
 - help us to dev with automations: 
 	* generate definitions base on standards and softwares specifities (see Intellji: JavaScriptLanguage package with `@browser` annotation. See `com.intellij.lang.javascript.JavascriptLanguage`, ECMAScript.js, DHTML.js and HTML5.js)
