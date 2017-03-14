@@ -1,8 +1,8 @@
 # Alexandrie
 
-Specificities of softwares that parse, render, deliver webpages and emails
+Specificities of applications that parse, render, deliver webpages and emails
 
-Softwares include web server, web browsers, webmail, email clients, softwares with embedded web browser engine (like WebKit), proxies, etc.
+Applications include web server, web browsers, webmail, email clients, applications with embedded web browser engine (like WebKit), proxies, etc.
 
 Affected domains like CSS, HTML, JS, SVG, DOM, ARIA, WebGL, PNG, HTTP, etc. (see [W3C standards](http://www.w3.org/standards/)).
 
@@ -14,7 +14,7 @@ See also:
 ## Motivations
 
 - we don't know everythink. We can miss things that create bugs
-- there is not always a public bugtracking ticket for that. (Especially for proprietary softwares or old browsers like IE<11)
+- there is not always a public bugtracking ticket for that. (Especially for proprietary applications or old browsers like IE<11)
 - we don't have a common test set available anywhere (lot of sources, when it's available)
 - bug tracking don't often include metadatas (tests, links to more informations, details and explainations) and noisy informations (comments in same place, because it's a bugtracking!)
 - bug tracking are for bugs, not for specifications interpretations nor for browser vendor specific features
@@ -23,7 +23,7 @@ See also:
 - we want to know about our technical debt
 - we want to know workaround, polyfills, etc.
 - help us to dev with automations: 
-	* generate definitions base on standards and softwares specifities (see Intellji: JavaScriptLanguage package with `@browser` annotation. See `com.intellij.lang.javascript.JavascriptLanguage`, ECMAScript.js, DHTML.js and HTML5.js)
+	* generate definitions base on standards and applications specifities (see Intellji: JavaScriptLanguage package with `@browser` annotation. See `com.intellij.lang.javascript.JavascriptLanguage`, ECMAScript.js, DHTML.js and HTML5.js)
 	* generate documentation ([DevDocs](http://devdocs.io/))
 	* update it or be the source of (a bit conceited): moz wiki, webplatform, caniuse, doiuse, html5please, whatwebcando, iswebvrready, browsercookielimits, etc.
 	* create tools like: [The API Catalog](https://developer.microsoft.com/en-us/microsoft-edge/platform/catalog/)
@@ -38,7 +38,7 @@ See also:
 	* generate summaries [What CSS prefixes should I use?](http://shouldiprefix.com/)
 - we want to know what the specs say and their implementation
 	Embed a widget with support in blog etc. "browser support", similar to [caniuse-widget](https://github.com/andismith/caniuse-widget), [caniuse-embed](https://github.com/ireade/caniuse-embed/), [caniuse-component](https://github.com/una/caniuse-component), etc.
-- because old version of softwares are still used
+- because old version of applications are still used
 - because when it's maintained, it done only by few people (projects other than caniuse, moz wiki, webplatform, etc.)
 - because it's not the goal of our sources
 - what specs say (if any)
